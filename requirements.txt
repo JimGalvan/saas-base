@@ -1,6 +1,8 @@
 # Core Django
 Django==5.1.1
-psycopg2-binary==2.9.9
+# PostgreSQL adapter - uncomment if using PostgreSQL
+# Note: On Windows, may require Microsoft Visual C++ 14.0+ Build Tools
+# psycopg2-binary==2.9.9
 dj-database-url==2.2.0
 python-dotenv==1.0.1
 gunicorn==23.0.0

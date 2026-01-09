@@ -19,4 +19,4 @@ else:
     # Default to development settings
     from .development import *
 
-print(f"⚙️  Loaded settings for: {env.upper()}")
+print(f"[Settings] Loaded configuration for: {env.upper()}")
