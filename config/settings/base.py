@@ -62,7 +62,7 @@ INSTALLED_APPS = [
 
     # Local apps (customize these for your project)
     # Note: These will be created in subsequent phases
-    # "apps.core",  # Core utilities and base models
+    "apps.core",  # Core utilities and base models
     # "apps.accounts",  # User management
     # "apps.subscription",  # Stripe subscription management
     # "apps.maintenance",  # Maintenance mode
@@ -74,7 +74,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Static file serving
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",  # Internationalization
-    # "apps.core.middleware.TranslationDebugMiddleware",  # Translation debug (will add in Phase 2)
+    "apps.core.middleware.TranslationDebugMiddleware",  # Translation debug
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -83,8 +83,8 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
-    # "apps.core.middleware.MaintenanceModeMiddleware",  # Maintenance mode (will add in Phase 2)
-    # "apps.core.middleware.FirebaseMiddleware",  # Firebase service worker stub (will add in Phase 2)
+    "apps.core.middleware.MaintenanceModeMiddleware",  # Maintenance mode
+    "apps.core.middleware.FirebaseMiddleware",  # Firebase service worker stub
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -101,9 +101,9 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 # Custom context processors (will add in Phase 2)
-                # "apps.core.context_processors.environment",
-                # "apps.core.context_processors.user_subscription",
-                # "apps.core.context_processors.recaptcha",
+                "apps.core.context_processors.environment",
+                "apps.core.context_processors.user_subscription",
+                "apps.core.context_processors.recaptcha",
             ],
         },
     },
