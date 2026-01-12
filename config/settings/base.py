@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     "apps.core",  # Core utilities and base models
     "apps.accounts",  # User management
     "apps.subscription",  # Stripe subscription management
-    # "apps.maintenance",  # Maintenance mode
+    "apps.maintenance",  # Maintenance mode
     # "apps.webhooks",  # Webhook handling
 ]
 
