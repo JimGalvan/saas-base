@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     # Local apps (customize these for your project)
     # Note: These will be created in subsequent phases
     "apps.core",  # Core utilities and base models
-    # "apps.accounts",  # User management
+    "apps.accounts",  # User management
     # "apps.subscription",  # Stripe subscription management
     # "apps.maintenance",  # Maintenance mode
     # "apps.webhooks",  # Webhook handling
@@ -186,14 +186,13 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-# Custom User Model (will be created in Phase 3)
-# AUTH_USER_MODEL = "accounts.User"
+# Custom User Model
+AUTH_USER_MODEL = "accounts.User"
 
 # Django Allauth Settings
 ACCOUNT_FORMS = {
-    # These forms will be created in Phase 3
-    # "signup": "apps.accounts.forms.CaptchaSignupForm",
-    # "login": "apps.accounts.forms.CustomLoginForm",
+    "signup": "apps.accounts.forms.CaptchaSignupForm",
+    "login": "apps.accounts.forms.CustomLoginForm",
 }
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
@@ -237,8 +236,8 @@ EMAIL_USE_TLS = True
 EMAIL_FAIL_SILENTLY = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-# Allauth adapter (will be created in Phase 3)
-# ACCOUNT_ADAPTER = "apps.accounts.adapters.AccountAdapter"
+# Allauth adapter
+ACCOUNT_ADAPTER = "apps.accounts.adapters.AccountAdapter"
 
 # Security settings
 SESSION_COOKIE_SECURE = (
