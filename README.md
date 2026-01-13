@@ -1,299 +1,409 @@
-# Django SaaS Starter
+# Django SaaS Starter 🚀
 
-A production-ready Django SaaS boilerplate extracted from real-world infrastructure. Built with Django 5.1, this starter includes everything you need to launch a subscription-based SaaS application.
+A production-ready Django SaaS boilerplate extracted from real-world infrastructure. Built with Django 5.1, this starter includes everything you need to launch a subscription-based SaaS application quickly and securely.
+
+[![Django](https://img.shields.io/badge/Django-5.1-green.svg)](https://www.djangoproject.com/)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+## ✨ What's Included
+
+This boilerplate is extracted from a production SaaS application and includes:
+
+- 🔐 **Complete Authentication System** - Email-based auth with django-allauth
+- 💳 **Stripe Subscriptions** - Full subscription management with webhooks
+- 🎨 **Modern UI** - Tailwind CSS with HTMX and Alpine.js
+- 🔧 **Admin Tools** - Maintenance mode, webhook logging, comprehensive admin
+- 📊 **Observability** - Structured logging, error tracking ready
+- 🌍 **Internationalization** - Multi-language support built-in
+- 🚀 **Production Ready** - Security hardened, environment configs, deployment ready
+
+## 📋 Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Apps Overview](#apps-overview)
+- [Development](#development)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## 🌟 Features
 
 ### Core Infrastructure
-- **Django 5.1.1** - Latest stable Django framework
-- **PostgreSQL** - Production-grade database
-- **Redis** - Caching and message broker
-- **Celery** - Async task processing
-- **AWS S3** - Scalable media storage
+- **Django 5.1.1** - Latest stable Django framework with modern features
+- **PostgreSQL** - Production-grade relational database
+- **Redis** - Caching layer and message broker
+- **Celery** (optional) - Async task processing for webhooks and background jobs
+- **AWS S3** - Scalable media file storage with boto3
 - **WhiteNoise** - Efficient static file serving
 
 ### Authentication & User Management
-- **django-allauth** - Email-based authentication
-- **Custom User Model** - UUID primary keys for distributed systems
-- **reCAPTCHA Integration** - Bot protection on signup
-- **Rate Limiting** - Comprehensive protection on auth endpoints
-- **Security Headers** - HSTS, XSS, CSRF protection
+- **Custom User Model** - UUID primary keys, timestamps, subscription integration
+- **django-allauth** - Robust email-based authentication
+- **reCAPTCHA** - Bot protection on signup forms
+- **Rate Limiting** - django-ratelimit on auth endpoints
+- **Password Reset** - Secure email-based password recovery
+- **Email Verification** - Optional email confirmation flow
 
 ### Subscription Management
-- **Stripe Integration** - Complete payment processing
-- **Webhook Handling** - Automated subscription sync
-- **Plan Management** - Flexible subscription tiers
-- **Customer Portal** - Self-service subscription management
+- **Stripe Integration** - Complete payment processing with Stripe API
+- **Customer Model** - Links users to Stripe customer IDs
+- **Subscription Model** - Tracks plan type, status, payment history
+- **Webhook Handling** - Automated sync with Stripe events
+- **Plan Management** - FREE/PLUS tiers (easily customizable)
+- **Idempotency** - Webhook deduplication and retry logic
+
+### Maintenance & Operations
+- **Maintenance Mode** - Database-backed singleton with admin toggle
+- **CLI Command** - `python manage.py maintenance_mode --enable/--disable`
+- **Cache Integration** - 60-second TTL for performance
+- **Custom Templates** - Full-page and HTMX partial maintenance pages
+
+### Webhook Infrastructure
+- **WebhookEvent Model** - Comprehensive webhook tracking
+- **Stripe Routers** - Separate handlers for account and connect webhooks
+- **Signature Verification** - Production-safe with DEBUG mode bypass
+- **Status Tracking** - RECEIVED → PROCESSING → PROCESSED/FAILED
+- **Admin Interface** - Color-coded status badges for debugging
+- **Async Processing** - Celery task examples included
+
+### UI & Frontend
+- **Tailwind CSS** - Utility-first CSS framework via CDN
+- **HTMX** - Dynamic interactions without JavaScript frameworks
+- **Alpine.js** - Lightweight JavaScript for reactive components
+- **Responsive Design** - Mobile-first approach
+- **Custom Components** - Buttons, cards, forms, inputs with consistent styling
+- **Flash Messages** - Automatic display and dismissal
 
 ### Developer Experience
-- **Multi-Environment Settings** - Development, QA, Production configs
-- **Maintenance Mode** - Database-backed with admin toggle
-- **Internationalization** - i18n/l10n support (English/Spanish)
-- **HTMX Integration** - Modern dynamic interactions
-- **Admin Interface** - Customized Django admin
+- **Multi-Environment Settings** - base, development, qa, production configs
+- **Environment Variables** - `.env.example` with all required variables
+- **Middleware Stack** - Security, maintenance, i18n, HTMX support
+- **Context Processors** - Environment, subscription, reCAPTCHA helpers
+- **Management Commands** - Custom commands for common tasks
+- **Admin Customization** - Enhanced admin interfaces for all models
 
-### Production Ready
-- **Heroku Deployment** - Ready for Heroku with Procfile
-- **Sentry Integration** - Error tracking and monitoring
-- **Email Backend** - Configured for SendGrid/SMTP
-- **Security Hardening** - Environment-aware security settings
+### Security & Compliance
+- **CSRF Protection** - Django CSRF middleware enabled
+- **Security Headers** - HSTS, XSS protection, content type sniffing protection
+- **Rate Limiting** - Protection against brute force attacks
+- **Environment Isolation** - DEBUG-aware security settings
+- **Password Validation** - Django's comprehensive password validators
+- **Legal Templates** - Privacy policy and terms of service pages
 
-## 📋 Requirements
+## 🛠 Tech Stack
 
-- Python 3.11+
-- PostgreSQL 14+
-- Redis 6+
-- AWS S3 bucket (for media storage in production)
-- Stripe account (for subscriptions)
+### Backend
+- **Django 5.1.1** - Web framework
+- **Python 3.11+** - Programming language
+- **PostgreSQL 14+** - Database
+- **Redis 6+** - Cache & message broker
+
+### Frontend
+- **Tailwind CSS 3.x** - Utility-first CSS
+- **HTMX 2.0** - HTML-over-the-wire
+- **Alpine.js 3.x** - Minimal JavaScript framework
+
+### Infrastructure
+- **Gunicorn** - WSGI HTTP Server
+- **WhiteNoise** - Static file serving
+- **boto3** - AWS SDK for S3
+- **Celery** - Task queue (optional)
+
+### Third-Party Services
+- **Stripe** - Payment processing
+- **AWS S3** - Media storage
+- **SendGrid/SMTP** - Email delivery
+- **Google reCAPTCHA** - Bot protection
 
 ## 🚀 Quick Start
 
-### 1. Clone the Repository
+### Prerequisites
+- Python 3.11 or higher
+- PostgreSQL 14 or higher (or SQLite for development)
+- Redis 6 or higher (optional, for caching)
+- Git
 
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/yourusername/django-saas-starter.git
 cd django-saas-starter
 ```
 
 ### 2. Create Virtual Environment
-
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 ### 3. Install Dependencies
-
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Environment Configuration
-
-Copy the example environment file and configure:
-
+### 4. Environment Variables
 ```bash
 cp .env.example .env
+# Edit .env with your configuration
 ```
 
-Edit `.env` with your settings (see Configuration section below).
-
-### 5. Database Setup
-
+### 5. Run Migrations
 ```bash
-# Run migrations
 python manage.py migrate
+```
 
-# Create superuser
+### 6. Create Superuser
+```bash
 python manage.py createsuperuser
 ```
 
-### 6. Run Development Server
+### 7. Collect Static Files
+```bash
+python manage.py collectstatic --noinput
+```
 
+### 8. Run Development Server
 ```bash
 python manage.py runserver
 ```
 
 Visit `http://localhost:8000` to see your application!
 
-## ⚙️ Configuration
-
-Key environment variables to configure in `.env`:
-
-```env
-# Django
-SECRET_KEY=your-secret-key
-DEBUG=True
-ENV=development
-BASE_URL=http://localhost:8000
-
-# Database
-DATABASE_URL=postgresql://user:password@localhost:5432/dbname
-
-# Redis
-REDIS_URL=redis://localhost:6379/0
-
-# AWS S3
-AWS_ACCESS_KEY_ID=your-access-key
-AWS_SECRET_ACCESS_KEY=your-secret-key
-AWS_STORAGE_BUCKET_NAME=your-bucket-name
-AWS_S3_REGION_NAME=us-east-1
-
-# Stripe
-STRIPE_API_KEY=sk_test_...
-STRIPE_PUBLISHABLE_KEY=pk_test_...
-STRIPE_ACCOUNT_WEBHOOK_SECRET=whsec_...
-
-# reCAPTCHA
-RECAPTCHA_PUBLIC_KEY=your-site-key
-RECAPTCHA_PRIVATE_KEY=your-secret-key
-```
-
-See `.env.example` for complete configuration options.
-
 ## 📁 Project Structure
 
 ```
 django-saas-starter/
-├── config/                 # Main project configuration
+├── apps/
+│   ├── accounts/          # User authentication & management
+│   │   ├── models.py      # Custom User model
+│   │   ├── forms.py       # Auth forms with reCAPTCHA
+│   │   ├── adapters.py    # Allauth customization
+│   │   └── admin.py       # User admin interface
+│   ├── core/              # Core utilities & base models
+│   │   ├── models.py      # BaseModel with UUID & timestamps
+│   │   ├── middleware.py  # Maintenance, i18n, Firebase
+│   │   ├── storage.py     # S3 storage backend
+│   │   ├── utils.py       # Common utilities
+│   │   ├── context_processors.py  # Template context
+│   │   └── views.py       # Core views (home, dashboard)
+│   ├── subscription/      # Stripe subscription management
+│   │   ├── models.py      # Customer, Subscription models
+│   │   ├── enums.py       # PlanType, SubscriptionStatus
+│   │   ├── utils.py       # Stripe helper functions
+│   │   └── admin.py       # Subscription admin
+│   ├── maintenance/       # Maintenance mode system
+│   │   ├── models.py      # MaintenanceMode singleton
+│   │   ├── admin.py       # Admin toggle interface
+│   │   └── management/commands/  # CLI commands
+│   └── webhooks/          # Webhook handling infrastructure
+│       ├── models.py      # WebhookEvent tracking
+│       ├── handlers.py    # Stripe webhook routers
+│       └── admin.py       # Webhook admin interface
+├── config/
 │   ├── settings/          # Environment-specific settings
-│   │   ├── base.py       # Base settings
-│   │   ├── development.py
-│   │   ├── qa.py
-│   │   └── prod.py
-│   ├── urls.py
-│   └── wsgi.py
-├── apps/                  # Django applications
-│   ├── core/             # Core utilities (Phase 2)
-│   ├── accounts/         # User management (Phase 3)
-│   ├── subscription/     # Stripe integration (Phase 4)
-│   ├── maintenance/      # Maintenance mode (Phase 5)
-│   └── webhooks/         # Webhook handlers (Phase 6)
-├── templates/            # HTML templates
-├── static/              # Static assets (CSS, JS, images)
-├── locale/              # i18n translation files
-├── docs/                # Documentation
-└── requirements.txt     # Python dependencies
+│   │   ├── base.py        # Shared settings
+│   │   ├── development.py # Local development
+│   │   ├── qa.py          # QA environment
+│   │   └── prod.py        # Production settings
+│   ├── urls.py            # Root URL configuration
+│   └── wsgi.py            # WSGI configuration
+├── templates/
+│   ├── base.html          # Base template with navigation
+│   ├── home.html          # Landing page
+│   ├── dashboard.html     # User dashboard
+│   ├── account/           # Authentication templates
+│   ├── legal/             # Privacy & terms pages
+│   └── maintenance/       # Maintenance mode templates
+├── static/
+│   ├── css/               # Custom stylesheets
+│   ├── js/                # Custom JavaScript
+│   └── favicon/           # Favicon files
+├── requirements.txt       # Python dependencies
+├── manage.py              # Django management script
+├── .env.example           # Environment variables template
+└── README.md              # This file
 ```
 
-## 🧪 Testing
+## ⚙️ Configuration
 
-Run the test suite:
+### Environment Variables
 
+Copy `.env.example` to `.env` and configure:
+
+**Core Settings**
 ```bash
-# Run all tests
+ENV=development  # development, qa, production
+SECRET_KEY=your-secret-key-here
+DEBUG=True  # False in production
+ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+**Database**
+```bash
+DATABASE_URL=postgresql://user:password@localhost:5432/dbname
+# Or use SQLite for development
+```
+
+**Stripe**
+```bash
+STRIPE_API_KEY=sk_test_...
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_ACCOUNT_WEBHOOK_SECRET=whsec_...
+STRIPE_CONNECT_WEBHOOK_SECRET=whsec_...
+```
+
+**AWS S3**
+```bash
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+AWS_STORAGE_BUCKET_NAME=your-bucket-name
+AWS_S3_REGION_NAME=us-east-1
+```
+
+**Email**
+```bash
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.sendgrid.net
+EMAIL_PORT=587
+EMAIL_HOST_USER=apikey
+EMAIL_HOST_PASSWORD=your-sendgrid-api-key
+```
+
+**reCAPTCHA**
+```bash
+RECAPTCHA_PUBLIC_KEY=your-site-key
+RECAPTCHA_PRIVATE_KEY=your-secret-key
+DISABLE_RECAPTCHA=False  # True for development
+```
+
+## 📦 Apps Overview
+
+### Core App
+Base utilities, models, middleware, and context processors used across the project.
+
+**Key Components:**
+- `BaseModel` - Abstract model with UUID, created_at, updated_at
+- `MaintenanceModeMiddleware` - Handles maintenance mode
+- `S3MediaStorage` - Custom S3 storage backend
+- Context processors for environment, subscriptions, reCAPTCHA
+
+### Accounts App
+User authentication and account management.
+
+**Key Components:**
+- Custom `User` model with UUID primary key
+- `CaptchaSignupForm` - Signup with reCAPTCHA
+- `CustomLoginForm` - Login with improved error messages
+- `AccountAdapter` - Allauth customization
+
+### Subscription App
+Stripe subscription management and billing.
+
+**Key Components:**
+- `Customer` model - Links users to Stripe
+- `Subscription` model - Tracks plans and status
+- Utility functions for syncing with Stripe
+- Admin interface for subscription management
+
+### Maintenance App
+Site-wide maintenance mode control.
+
+**Key Components:**
+- `MaintenanceMode` singleton model
+- Admin interface with visual indicators
+- CLI management command
+- Cached status checking for performance
+
+### Webhooks App
+Webhook event handling and tracking.
+
+**Key Components:**
+- `WebhookEvent` model - Stores webhook payloads
+- Stripe webhook routers (account & connect)
+- Idempotency checking
+- Admin interface with color-coded status badges
+
+## 💻 Development
+
+### Running Tests
+```bash
 pytest
-
-# Run with browser UI (for Playwright tests)
-pytest --headed
-
-# Run specific test file
-pytest tests/test_authentication.py
+# With coverage
+pytest --cov=apps
 ```
 
-## 📚 Documentation
-
-Detailed documentation is available in the `docs/` directory:
-
-- [Installation Guide](docs/INSTALLATION.md) - Detailed setup instructions
-- [Configuration Guide](docs/CONFIGURATION.md) - All environment variables explained
-- [Stripe Setup](docs/STRIPE_SETUP.md) - Stripe integration walkthrough
-- [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment instructions
-- [Customization Guide](docs/CUSTOMIZATION.md) - How to customize for your needs
-
-## 🔧 Development Commands
-
+### Creating Migrations
 ```bash
-# Run development server
-python manage.py runserver
-
-# Create migrations
 python manage.py makemigrations
-
-# Apply migrations
 python manage.py migrate
+```
 
-# Create superuser
-python manage.py createsuperuser
+### Maintenance Mode
+```bash
+# Enable maintenance mode
+python manage.py maintenance_mode --enable
 
-# Collect static files
-python manage.py collectstatic
+# Disable maintenance mode
+python manage.py maintenance_mode --disable
 
-# Start Celery worker
+# Check status
+python manage.py maintenance_mode --status
+
+# Custom message
+python manage.py maintenance_mode --enable --message "Upgrading database"
+```
+
+### Collecting Static Files
+```bash
+python manage.py collectstatic --noinput
+```
+
+### Running Celery (Optional)
+```bash
+# Worker
 celery -A config worker -l info
 
-# Toggle maintenance mode
-python manage.py maintenance_mode on|off
+# Beat (for scheduled tasks)
+celery -A config beat -l info
 ```
 
 ## 🚢 Deployment
 
-This project is optimized for Heroku deployment but can be deployed to any platform that supports Django.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions including:
+- Heroku deployment
+- AWS deployment
+- Docker deployment
+- Environment configuration
+- Security checklist
 
-### Heroku Deployment
+## 🤝 Contributing
 
-```bash
-# Install Heroku CLI and login
-heroku login
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-# Create Heroku app
-heroku create your-app-name
-
-# Add PostgreSQL
-heroku addons:create heroku-postgresql:mini
-
-# Add Redis
-heroku addons:create heroku-redis:mini
-
-# Set environment variables
-heroku config:set SECRET_KEY=your-secret-key
-heroku config:set ENV=production
-# ... (see docs/DEPLOYMENT.md for complete list)
-
-# Deploy
-git push heroku main
-
-# Run migrations
-heroku run python manage.py migrate
-
-# Create superuser
-heroku run python manage.py createsuperuser
-```
-
-See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed deployment instructions.
-
-## 🎨 Customization
-
-This is a boilerplate - customize it for your needs:
-
-1. **Branding**: Update templates, logo, colors, site name
-2. **Features**: Add your app-specific functionality in `apps/`
-3. **Subscription Plans**: Configure your pricing in Stripe dashboard
-4. **Email Templates**: Customize in `templates/account/email/`
-5. **Landing Page**: Update `templates/home.html`
-
-See [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md) for detailed guidance.
-
-## 🛡️ Security
-
-This boilerplate includes production-ready security:
-
-- HTTPS enforcement in production
-- Secure session cookies
-- CSRF protection
-- XSS prevention
-- Rate limiting on authentication
-- Security headers (HSTS, X-Frame-Options, etc.)
-- reCAPTCHA bot protection
-
-Always review and test security settings before production deployment.
-
-## 📝 License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-This boilerplate was extracted from [NexMenus](https://github.com/yourusername/NexMenus), a production SaaS application. It represents real-world, battle-tested infrastructure.
+This boilerplate was extracted from production infrastructure at NexMenus, a restaurant website builder SaaS platform.
 
-## 🤝 Contributing
+## 📚 Additional Resources
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+- [Django Documentation](https://docs.djangoproject.com/)
+- [django-allauth Documentation](https://django-allauth.readthedocs.io/)
+- [Stripe API Documentation](https://stripe.com/docs/api)
+- [HTMX Documentation](https://htmx.org/docs/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## 💬 Support
 
-## 📧 Support
-
-- **Documentation**: Check the `docs/` directory
-- **Issues**: Open an issue on GitHub
-- **Discussions**: Use GitHub Discussions for questions
+For questions, issues, or feature requests, please open an issue on GitHub.
 
 ---
 
-**Status**: 🚧 In Development - Phase 1 Complete
-
-This project is being actively developed. See [SAAS_EXTRACTION_PLAN.md](SAAS_EXTRACTION_PLAN.md) for the development roadmap.
+**Built with ❤️ using Django**
