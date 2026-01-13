@@ -12,7 +12,7 @@
 
 ## 🎯 Progress Tracker
 
-### Overall Progress: 45% (5/11 phases complete)
+### Overall Progress: 55% (6/11 phases complete)
 
 | Phase | Status | Date Completed | Notes |
 |-------|--------|----------------|-------|
@@ -21,7 +21,7 @@
 | Phase 3: User & Authentication | ✅ **COMPLETE** | 2026-01-11 | User model, forms, adapter, admin configured |
 | Phase 4: Subscription System | ✅ **COMPLETE** | 2026-01-11 | Stripe integration, Customer/Subscription models, utilities |
 | Phase 5: Maintenance Mode | ✅ **COMPLETE** | 2026-01-11 | Singleton model, admin interface, CLI command, templates |
-| Phase 6: Webhooks | 📋 Planned | - | Webhook infrastructure planned |
+| Phase 6: Webhooks | ✅ **COMPLETE** | 2026-01-11 | WebhookEvent model, Stripe routers, admin interface |
 | Phase 7: Templates & Static | 📋 Planned | - | Template extraction planned |
 | Phase 8: Configuration & URLs | 📋 Planned | - | URL configuration planned |
 | Phase 9: Documentation | 📋 Planned | - | Comprehensive docs needed |
@@ -29,19 +29,27 @@
 | Phase 11: Polish & Release | 📋 Planned | - | Final cleanup and release |
 
 ### Latest Update: 2026-01-11
-**Phase 5 Complete** - Maintenance Mode system extracted and configured:
-- ✅ MaintenanceMode singleton model with automatic caching (60s TTL)
-- ✅ Admin interface with color-coded status indicators (red=active, green=inactive)
-- ✅ CLI management command with multiple options (--enable, --disable, --status, --message)
-- ✅ Maintenance templates (full page and HTMX partial) with generic branding
-- ✅ Singleton pattern enforcement (prevents multiple instances)
-- ✅ Cache invalidation on save for instant status updates
-- ✅ Prevention of deletion and duplication in admin
-- ✅ Settings updated to include maintenance app
+**Phase 6 Complete** - Webhooks infrastructure extracted and configured:
+- ✅ WebhookEvent model with UUID primary key and comprehensive tracking
+- ✅ WebhookEventStatus enum (RECEIVED, PROCESSING, PROCESSED, FAILED)
+- ✅ Stripe webhook routers for account and connect events
+- ✅ Signature verification with Stripe webhook secrets
+- ✅ Idempotency checking via unique constraint (provider + event_id)
+- ✅ JSON payload storage and error tracking
+- ✅ Retry count tracking for failed events
+- ✅ Helper methods: mark_as_processing(), mark_as_processed(), mark_as_failed()
+- ✅ Admin interface with color-coded status badges (blue/orange/green/red)
+- ✅ Read-only admin (prevents manual creation)
+- ✅ URL patterns for Stripe webhooks (account and connect)
+- ✅ DEBUG mode support for local testing without signatures
+- ✅ Comprehensive logging for debugging
+- ✅ Database indexes for performance optimization
+- ✅ Ready for Celery async processing (commented examples included)
+- ✅ Settings updated to include webhooks app
 - ✅ Migrations generated and applied successfully
-- ✅ Commit: 57f8536
+- ✅ Commit: 9883988
 
-**Next Steps:** Phase 6: Webhooks - Extract webhook infrastructure for Stripe events
+**Next Steps:** Phase 7: Templates & Static - Extract base templates and static files
 
 ---
 
