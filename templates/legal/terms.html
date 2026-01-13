@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Terms of Service - Django SaaS Starter{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-8">Terms of Service</h1>
+
+    <div class="prose prose-indigo max-w-none">
+        <p class="text-gray-600 mb-6">Last updated: {% now "F j, Y" %}</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">Agreement to Terms</h2>
+        <p>By accessing and using this service, you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">Use License</h2>
+        <p>Permission is granted to temporarily use the service for personal, non-commercial transitory viewing only.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">User Accounts</h2>
+        <p>When you create an account with us, you must provide accurate, complete, and current information at all times.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">Termination</h2>
+        <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever.</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">Contact Us</h2>
+        <p>If you have any questions about these Terms, please contact us.</p>
+    </div>
+</div>
+{% endblock %}
