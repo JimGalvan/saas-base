@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     "apps.accounts",  # User management
     "apps.subscription",  # Stripe subscription management
     "apps.maintenance",  # Maintenance mode
-    # "apps.webhooks",  # Webhook handling
+    "apps.webhooks",  # Webhook handling
 ]
 
 MIDDLEWARE = [
