@@ -161,12 +161,21 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-### 7. Collect Static Files
+### 7. Load Sample Data (Optional)
+```bash
+python manage.py setup_sample_data
+```
+This creates demo users and subscriptions for testing:
+- `admin@example.com` / `admin123` (Admin access)
+- `demo@example.com` / `demo123` (PLUS subscription)
+- `free@example.com` / `free123` (FREE subscription)
+
+### 8. Collect Static Files
 ```bash
 python manage.py collectstatic --noinput
 ```
 
-### 8. Run Development Server
+### 9. Run Development Server
 ```bash
 python manage.py runserver
 ```

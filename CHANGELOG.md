@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned Features
-- Comprehensive test suite with pytest
 - Docker deployment configuration
 - Additional subscription plan tiers
 - User profile management interface
@@ -16,6 +15,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - API documentation with OpenAPI/Swagger
 - Multi-language support expansion
 - Advanced admin analytics dashboard
+
+## [1.0.1] - 2026-01-25
+
+### Added
+- Comprehensive test suite with 61 unit tests covering all apps
+  - accounts: User model tests, authentication forms tests
+  - core: Utility functions, context processors, middleware tests
+  - subscription: Customer, Subscription models, enums tests
+  - maintenance: Singleton pattern, caching, status methods tests
+  - webhooks: WebhookEvent model, handlers tests
+- Infrastructure validation script (20 automated checks)
+- Sample data management command for development setup
+
+### Changed
+- Updated django-allauth settings to use modern configuration syntax
+  - Replaced deprecated `ACCOUNT_AUTHENTICATION_METHOD` with `ACCOUNT_LOGIN_METHODS`
+  - Replaced deprecated `ACCOUNT_EMAIL_REQUIRED`/`ACCOUNT_USERNAME_REQUIRED` with `ACCOUNT_SIGNUP_FIELDS`
+
+### Fixed
+- Django system check warnings for deprecated allauth settings
 
 ## [1.0.0] - 2026-01-12
 
